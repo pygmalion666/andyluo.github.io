@@ -1,7 +1,9 @@
-/* 
+/** 
  * Insertion Sort
- * Url:http://www.icourse163.org/learn/NTHU-451013?tid=522006#/learn/content?type=detail&id=948063
- */
+ * 
+ * http://www.icourse163.org/learn/NTHU-451013?tid=522006#/learn/content?type=detail&id=948063
+ *
+ **/
 #include <stdio.h>
 
 int main()

@@ -121,3 +121,27 @@ lsof -i -P | grep -i "listen"
 
 # 生成wifi热点二维码
 qrencode -s 7 -o qr-wifi.png "WIFI:S:$(zenity --entry --text="Network name (SSID)" --title="Create WiFi QR");T:WPA;P:$(zenity --password --title="Wifi Password");;"
+
+# 导出mdb
+mdb-export -H -I -R database.mdb table >table.sql
+
+# 查看known_hosts信息
+ssh-keygen -l -f ~/.ssh/known_hosts
+
+# 升级所有perl mod
+perl -MCPAN -e 'CPAN::Shell->install(CPAN::Shell->r)'
+
+# Url Encode
+echo "$@" | sed 's/ /%20/g;s/!/%21/g;s/"/%22/g;s/#/%23/g;s/\$/%24/g;s/\&/%26/g;s/'\''/%27/g;s/(/%28/g;s/)/%29/g;s/:/%3A/g'
+
+# 每5行打印其中3行
+sed -n '1~5{N;N;p}' file.txt
+
+# 用awk求和
+ps -ylC httpd --sort:rss | awk '{ SUM += $8 } END { print SUM/1024 }'
+
+# 如何不用uname查看内核版本
+strings /boot/kernel-file | grep 2.6
+
+# 找出写入大于1000k的
+iotop -o -b -d 1 -P -k|awk '/^[1-9]/{if($6>1000){print $0}}'

@@ -145,3 +145,15 @@ strings /boot/kernel-file | grep 2.6
 
 # 找出写入大于1000k的
 iotop -o -b -d 1 -P -k|awk '/^[1-9]/{if($6>1000){print $0}}'
+
+#监听一个端口(telnet 可以发送内容)
+nc -l <port-number>
+
+# 自动ssh密码
+SSHPASS='your_password' sshpass -e ssh me@myhost.com
+
+# 递归列出包含给定搜索字符串的文件
+find /path/to/dir -type f -print0 | xargs -0 grep -l "foo"
+
+# 列求和
+awk '{s+=$1}END{print s}' <file>

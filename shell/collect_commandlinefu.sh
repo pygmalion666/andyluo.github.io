@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# The commands come from a funny site--https://commandlinefu.cn/
+
 # 在gz内查找
 zcat /usr/share/man/man1/grep.1.gz | grep "color"
 
@@ -146,8 +148,8 @@ strings /boot/kernel-file | grep 2.6
 # 找出写入大于1000k的
 iotop -o -b -d 1 -P -k|awk '/^[1-9]/{if($6>1000){print $0}}'
 
-#监听一个端口(telnet 可以发送内容)
-nc -l <port-number>
+#监听一个端口(33210)(telnet 可以发送内容)
+nc -l 33210
 
 # 自动ssh密码
 SSHPASS='your_password' sshpass -e ssh me@myhost.com
@@ -156,4 +158,19 @@ SSHPASS='your_password' sshpass -e ssh me@myhost.com
 find /path/to/dir -type f -print0 | xargs -0 grep -l "foo"
 
 # 列求和
-awk '{s+=$1}END{print s}' <file>
+awk '{s+=$1}END{print s}' /tmp/test.log
+
+# 生成MD5
+echo -n "String to MD5" | md5sum | cut -b-32
+
+# 递归的计算行数
+find ./ -not -type d | xargs wc -l | cut -c 1-8 | awk '{total += $1} END {print total}'  ​​​
+
+# 查看 TCP 和 UDP 链接
+netstat -nlput
+
+# 用tee命令和进程替换机制，把标准输出传给多个命令当作输入文件
+some_command | tee >(command1) >(command2) >(command3) ... | command4
+
+# 递归的计算行数
+find ./ -not -type d | xargs wc -l | cut -c 1-8 | awk '{total += $1} END {print total}'

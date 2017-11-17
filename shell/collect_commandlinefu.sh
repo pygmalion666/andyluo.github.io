@@ -174,3 +174,6 @@ some_command | tee >(command1) >(command2) >(command3) ... | command4
 
 # 递归的计算行数
 find ./ -not -type d | xargs wc -l | cut -c 1-8 | awk '{total += $1} END {print total}'
+
+# 导出mysql为.csv
+echo "SELECT * FROM table; " | mysql -u root -p${MYSQLROOTPW} databasename | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > outfile.csv

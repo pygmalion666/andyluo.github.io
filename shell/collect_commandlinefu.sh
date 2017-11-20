@@ -177,3 +177,12 @@ find ./ -not -type d | xargs wc -l | cut -c 1-8 | awk '{total += $1} END {print 
 
 # 导出mysql为.csv
 echo "SELECT * FROM table; " | mysql -u root -p${MYSQLROOTPW} databasename | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > outfile.csv
+
+# 获得脚本的运行路径
+BASEDIR=$(dirname $(readlink -f $0))
+
+# 列出50个大文件
+find . -type f -name '*.pm' -printf '%6s %p\n' | sort -nr | head -n 50 
+
+# 密码生成器
+pwgen --alt-phonics --capitalize 9 10 

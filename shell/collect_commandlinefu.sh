@@ -185,4 +185,7 @@ BASEDIR=$(dirname $(readlink -f $0))
 find . -type f -name '*.pm' -printf '%6s %p\n' | sort -nr | head -n 50 
 
 # 密码生成器
-pwgen --alt-phonics --capitalize 9 10 
+pwgen --alt-phonics --capitalize 9 10
+
+# 获取所有 mac 地址
+ip link show

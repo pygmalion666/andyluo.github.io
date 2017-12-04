@@ -189,3 +189,9 @@ pwgen --alt-phonics --capitalize 9 10
 
 # 获取所有 mac 地址
 ip link show
+
+# 统计访问量多余20次的ip
+tail -n2000 /var/www/domains/*/*/logs/access_log | awk '{print $1}' | sort | uniq -c | sort -n | awk '{ if ($1 > 20)print $1,$2}'
+
+# 发送请求到远程服务
+curl -D - -X POST -H 'Content-type: text/xml' -d @XML http://remote_server:8080/web-service/soap/WSName 

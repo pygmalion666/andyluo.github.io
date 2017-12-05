@@ -134,7 +134,7 @@ ssh-keygen -l -f ~/.ssh/known_hosts
 perl -MCPAN -e 'CPAN::Shell->install(CPAN::Shell->r)'
 
 # Url Encode
-echo "$@" | sed 's/ /%20/g;s/!/%21/g;s/"/%22/g;s/#/%23/g;s/\$/%24/g;s/\&/%26/g;s/'\''/%27/g;s/(/%28/g;s/)/%29/g;s/:/%3A/g'
+# echo "$@" | sed 's/ /%20/g;s/!/%21/g;s/"/%22/g;s/#/%23/g;s/\$/%24/g;s/\&/%26/g;s/'\''/%27/g;s/(/%28/g;s/)/%29/g;s/:/%3A/g'
 
 # 每5行打印其中3行
 sed -n '1~5{N;N;p}' file.txt
@@ -195,3 +195,6 @@ tail -n2000 /var/www/domains/*/*/logs/access_log | awk '{print $1}' | sort | uni
 
 # 发送请求到远程服务
 curl -D - -X POST -H 'Content-type: text/xml' -d @XML http://remote_server:8080/web-service/soap/WSName 
+
+# 目录树
+tree -d

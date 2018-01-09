@@ -201,3 +201,9 @@ tree -d
 
 # 查看 CPU 信息
 lscpu
+
+# 定时启动wget下载
+echo 'wget url' | at 01:00
+
+# 提取文件中的标签
+awk -vRS="</Tag2>" '/<Tag2>/{gsub(/.*<Tag2>/,"");print}' file 

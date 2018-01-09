@@ -198,3 +198,6 @@ curl -D - -X POST -H 'Content-type: text/xml' -d @XML http://remote_server:8080/
 
 # 目录树
 tree -d
+
+# 查看 CPU 信息
+lscpu

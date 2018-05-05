@@ -207,3 +207,105 @@ echo 'wget url' | at 01:00
 
 # 提取文件中的标签
 awk -vRS="</Tag2>" '/<Tag2>/{gsub(/.*<Tag2>/,"");print}' file 
+
+# 查看 tcp 连接 osx 也支持
+sudo lsof -i -n -P | grep TCP
+
+# 就地查找/替换后备日期戳 
+sed -i.`date +%Y%m%d` -e 's/pattern/replace' [filename]
+
+# 按 ip 分组的 netstat
+netstat -nt | awk -F":" '{print $2}' | sort | uniq -c
+
+# 列出2到100的素数
+for num in `seq 2 100`;do if [ `factor $num|awk '{print $2}'` == $num ];then echo -n "$num ";fi done;echo
+
+# 列出2到100之间的质数
+seq 2 100 | factor | sed '/ .* / d ; s/:.*//'
+
+# 获取网页的所有连接
+lynx -dump http://www.domain.com | grep http| awk '{print $2 }'
+
+# 获取网页的所有连接
+lynx -dump http://www.domain.com | awk '/http/{print $2}'
+
+# 获取网页的全部链接
+lynx -dump http://domaim.com | egrep -o -e 'http://[/0-9a-z.]+html'
+
+# 获取一个网站上的所有链接
+lynx -dump http://www.domain.com | awk '/http/{print $2}' | egrep "^https{0,1}"
+
+# 提供一个正则表达式，获取一个网站上所有匹配该模式的URL
+lynx --dump "http://www.google.com.br" | egrep -o "http:.*"
+
+# 显示所有静态调用的PHP类文件列表
+find . -name "*\.php" | xargs grep -o --color "\w\+::\w\+" | cut -d":" -f2 | sort | uniq -c
+
+# 检查所有的MySQL表
+myisamchk /path/to/mysql/files/*.MYI
+
+# 清空文件
+: > file.txt
+
+# 如何查看大文件的某行
+sed '1000000!d;q' < massive-log-file.log
+
+# 快速创建一个文件的备份
+cp file.txt{,.bak}
+
+# 创建一个不包含svn目录的zip压缩包
+zip -r myfile.zip * -x \*.svn\*
+
+# 带有压缩的scp
+tar czv file1 file2 folder1 | ssh user@server tar zxv -C /destination
+
+# 比较远程和本地文件
+ssh user@host cat /path/to/remotefile | diff /path/to/localfile -
+
+# 比较两个未排序的文件
+diff <(sort file1) <(sort file2)
+
+# 查看所有没有被注释掉的行
+grep -v "^#" file.txt | more
+
+# 持续观察eth0上的数据变化
+watch ifconfig eth0
+
+# 统计 httpd 的进程数量和内存使用
+ps awwwux | grep httpd | grep -v grep | awk '{mem = $6; tot = $6 + tot; total++} END{printf("Total procs: %d\nAvg Size: %d KB\nTotal Mem Used: %f GB\n", total, mem / total, tot / 1024 / 1024)}'
+
+# 查询 mysql 的查询数量
+echo "SHOW PROCESSLIST\G" | mysql -u root -p | grep "Info:" | awk -F":" '{count[$NF]++}END{for(i in count){printf("%d: %s\n", count[i], i)}}' | sort -n
+
+# 计算 pow
+bc -l <<< "x=2; p=0.5; e(l(x)*p)" 
+
+# 如何对齐显示结果
+df -P | column -t
+
+# 以表格的形式列出当前已挂载的文件系统
+mount | column -t
+
+# 备份所有mysql数据库到单独的文件
+for I in $(mysql -e 'show databases' -s --skip-column-names); do mysqldump $I | gzip > "$I.sql.gz"; done
+
+# 读取设备的ip
+/sbin/ip -f inet addr | sed -rn 's/.*inet ([^ ]+).*(eth[[:digit:]]*(:[[:digit:]]+)?)/\2 \1/p' | column -t
+
+# 查看所有 ipv4d 地址
+alias ips='ip a | awk '\''/inet /&&!/ lo/{print $NF,$2}'\'' | column -t'
+
+# 格式化文本为表格
+cat /etc/passwd | column -ts: 
+
+# 列出当前目录下占用空间最大的十个文件或目录
+du -sb *|sort -nr|head|awk '{print $2}'|xargs du -sh 
+
+# 在当前目录不超过两级深度的范围内查找最近五天修改过的文件
+find . -maxdepth 3 -mtime -5 -type f
+
+# 解决通配符提示 Arguments too long 一种方法
+find . -name "*.txt" -exec WHATEVER_COMMAND {} \;
+
+# 快而粗暴的文件树比对方式
+ls -Rl dir1/ > /tmp/dir1.ls; ls -Rl dir2/ > /tmp/dir2.ls; meld /tmp/dir1.ls /tmp/dir2.ls  

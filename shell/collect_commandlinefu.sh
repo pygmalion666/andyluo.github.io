@@ -309,3 +309,6 @@ find . -name "*.txt" -exec WHATEVER_COMMAND {} \;
 
 # 快而粗暴的文件树比对方式
 ls -Rl dir1/ > /tmp/dir1.ls; ls -Rl dir2/ > /tmp/dir2.ls; meld /tmp/dir1.ls /tmp/dir2.ls  
+
+# 仅当文件夹路径原来不在$PATH中，才把它添加到$PATH
+if [[ ":$PATH:" != *":$dir:"* ]]; then PATH=${PATH}:$dir; fi
